@@ -15,10 +15,9 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
 #include "lambdachip.h"
 
-void main(void)
+int main(int argc, char** argv)
 {
   /* TODO:
    * 1. Add a REPL shell (include an interpreter)
@@ -26,6 +25,8 @@ void main(void)
    * 3. Add a special naming convention, if VM detect them then autorun
    * 4. Add online DEBUG
    */
-  printk("Platform: zephyr on %s\n", CONFIG_BOARD);
+  os_printk("Platform: %s\n", get_platform_info());
   lambdachip_start();
+
+  return 0;
 }

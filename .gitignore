@@ -1,0 +1,6 @@
+*~
+build
+ideas
+*.lo
+obj
+*.o
