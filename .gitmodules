@@ -1,0 +1,3 @@
+[submodule "lambdachip"]
+	path = lambdachip
+	url = git@gitlab.com:lambdachip/lambdachip.git
