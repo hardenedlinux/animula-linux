@@ -4,3 +4,5 @@ ideas
 *.lo
 obj
 *.o
+lambdachip
+lambdachip-vm
