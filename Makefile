@@ -12,7 +12,7 @@ dfile := $(ofile:.o=.d)
 LDPATH := -L$(OBJ)
 LDFLAGS := $(LDPATH)
 CFLAGS := -Og -g -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra \
-	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wpointer-arith \
+	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith \
 	-fdiagnostics-color=always -DLAMBDACHIP_LINUX -DLAMBDACHIP_DEBUG
 PROG := lambdachip-vm
 
