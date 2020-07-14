@@ -60,7 +60,6 @@ int main(int argc, char** argv)
 
   VM_DEBUG("Loading LEF image from %s......\n", argv[optind]);
   lef_t lef = load_lef_from_file(argv[optind]);
-  os_printk("psize: %d\n", lef->psize);
   os_memcpy(vm->code, LEF_PROG(lef), lef->psize);
   vm_run(vm);
 
