@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 
 #if defined LAMBDACHIP_LINUX
   int c;
+  /* TODO: specify the size of codeseg/dataseg/stack
+   */
   while ((c = getopt(argc, argv, "vx")) != -1)
     switch (c)
       {
@@ -60,7 +62,7 @@ int main(int argc, char** argv)
 
   VM_DEBUG("Loading LEF image from %s......\n", argv[optind]);
   lef_t lef = load_lef_from_file(argv[optind]);
-  os_memcpy(vm->code, LEF_PROG(lef), lef->psize);
+  vm_load_lef(vm, lef);
   vm_run(vm);
 
   return 0;
