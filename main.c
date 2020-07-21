@@ -20,6 +20,14 @@
 GLOBAL_DEF (bool, vm_verbose) = false;
 GLOBAL_DEF (bool, vm_execute) = false;
 
+#if defined LAMBDACHIP_LINUX
+#  include <getopt.h>
+#endif
+
+GLOBAL_DEF (size_t, VM_CODESEG_SIZE) = 8192;
+GLOBAL_DEF (size_t, VM_DATASEG_SIZE) = 2048;
+GLOBAL_DEF (size_t, VM_STKSEG_SIZE) = 1024;
+
 int main (int argc, char **argv)
 {
   if (1 == argc)
@@ -29,13 +37,58 @@ int main (int argc, char **argv)
     }
 
 #if defined LAMBDACHIP_LINUX
+  static struct option long_options[]
+    = {{"code-size", required_argument, 0, 0},
+       {"data-size", required_argument, 0, 0},
+       {"stack-size", required_argument, 0, 0},
+       {0, 0, 0, 0}};
+
   int c;
-  /* TODO: specify the size of codeseg/dataseg/stack
-   */
-  while ((c = getopt (argc, argv, "vx")) != -1)
+
+  while (1)
     {
+      int option_index = 0;
+
+      c = getopt_long (argc, argv, "vx", long_options, &option_index);
+      if (-1 == c)
+        {
+          break;
+        }
+
       switch (c)
         {
+        case 0:
+          printf ("option %s", long_options[option_index].name);
+          if (optarg)
+            {
+              char *tail;
+              ssize_t size = strtoul (optarg, &tail, 10);
+              if (tail[0] != '\0')
+                {
+                  fprintf (stderr, "Error in parsing command %s = %s",
+                           long_options[option_index].name, optarg);
+                }
+              if (0
+                  == strncmp (long_options[option_index].name, "code-size",
+                              sizeof ("code-size")))
+                {
+                  GLOBAL_SET (VM_CODESEG_SIZE, size);
+                }
+              else if (0
+                       == strncmp (long_options[option_index].name, "data-size",
+                                   sizeof ("data-size")))
+                {
+                  GLOBAL_SET (VM_DATASEG_SIZE, size);
+                }
+              else if (0
+                       == strncmp (long_options[option_index].name,
+                                   "stack-size", sizeof ("stack-size")))
+                {
+                  GLOBAL_SET (VM_STKSEG_SIZE, size);
+                }
+            }
+          break;
+
         case 'v':
           {
             GLOBAL_SET (vm_verbose, true);
