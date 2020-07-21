@@ -39,13 +39,11 @@ int main (int argc, char **argv)
        {"stack-size", required_argument, 0, 0},
        {0, 0, 0, 0}};
 
-  int c;
-
   while (1)
     {
       int option_index = 0;
 
-      c = getopt_long (argc, argv, "vx", long_options, &option_index);
+      int c = getopt_long (argc, argv, "vx", long_options, &option_index);
       if (-1 == c)
         {
           break;
