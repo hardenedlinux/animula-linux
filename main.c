@@ -16,13 +16,10 @@
  */
 
 #include "lambdachip.h"
+#include <getopt.h>
 
 GLOBAL_DEF (bool, vm_verbose) = false;
 GLOBAL_DEF (bool, vm_execute) = false;
-
-#if defined LAMBDACHIP_LINUX
-#  include <getopt.h>
-#endif
 
 GLOBAL_DEF (size_t, VM_CODESEG_SIZE) = 8192;
 GLOBAL_DEF (size_t, VM_DATASEG_SIZE) = 2048;
@@ -36,7 +33,6 @@ int main (int argc, char **argv)
       exit (0);
     }
 
-#if defined LAMBDACHIP_LINUX
   static struct option long_options[]
     = {{"code-size", required_argument, 0, 0},
        {"data-size", required_argument, 0, 0},
@@ -103,7 +99,6 @@ int main (int argc, char **argv)
           exit (-1);
         }
     }
-#endif
 
   /* TODO:
    * 1. Add a REPL shell (include an interpreter)
