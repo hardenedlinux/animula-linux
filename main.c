@@ -116,6 +116,7 @@ int main (int argc, char **argv)
   lef_t lef = load_lef_from_file (argv[optind]);
   vm_load_lef (vm, lef);
   vm_run (vm);
+  lambdachip_clean (vm);
 
   return 0;
 }
