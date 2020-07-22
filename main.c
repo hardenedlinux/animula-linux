@@ -52,15 +52,15 @@ int main (int argc, char **argv)
       switch (c)
         {
         case 0:
-          printf ("option %s", long_options[option_index].name);
           if (optarg)
             {
               char *tail;
               ssize_t size = strtoul (optarg, &tail, 10);
               if (tail[0] != '\0')
                 {
-                  fprintf (stderr, "Error in parsing command %s = %s",
-                           long_options[option_index].name, optarg);
+                  os_printk ("Error in parsing command %s = %s",
+                             long_options[option_index].name, optarg);
+                  exit (-1);
                 }
               if (0
                   == strncmp (long_options[option_index].name, "code-size",
