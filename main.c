@@ -62,7 +62,8 @@ int main (int argc, char **argv)
               const ssize_t size = strtoul (optarg, &tail, 10);
               if (tail[0] != '\0')
                 {
-                  os_printk ("Error in parsing command %s = %s", name, optarg);
+                  os_printk ("Error in parsing command %s = %s\n", name,
+                             optarg);
                   exit (-1);
                 }
               if (0 == strncmp (name, "code-size", sizeof ("code-size")))
