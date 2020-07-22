@@ -46,20 +46,20 @@ int main (int argc, char **argv)
     {
       int option_index = 0;
 
-      int c = getopt_long (argc, argv, "vx", long_options, &option_index);
+      const int c = getopt_long (argc, argv, "vx", long_options, &option_index);
       if (-1 == c)
         {
           break;
         }
 
-      const char *name = long_options[option_index].name;
+      const char *const name = long_options[option_index].name;
       switch (c)
         {
         case 0:
           if (optarg)
             {
               char *tail;
-              ssize_t size = strtoul (optarg, &tail, 10);
+              const ssize_t size = strtoul (optarg, &tail, 10);
               if (tail[0] != '\0')
                 {
                   os_printk ("Error in parsing command %s = %s", name, optarg);
