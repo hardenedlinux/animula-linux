@@ -29,7 +29,10 @@ int main (int argc, char **argv)
 {
   if (1 == argc)
     {
-      os_printk ("[usage] lambdachip-vm [-vx] filename.lef\n");
+      os_printk (
+        "[usage] lambdachip-vm [options] filename.lef\n"
+        "options: -v, -m, --code-size=SIZE, --data-size=SIZE, --stack-size=SIZE"
+        "\n");
       exit (0);
     }
 
