@@ -49,6 +49,7 @@ int main (int argc, char **argv)
           break;
         }
 
+      const char *name = long_options[option_index].name;
       switch (c)
         {
         case 0:
@@ -58,33 +59,25 @@ int main (int argc, char **argv)
               ssize_t size = strtoul (optarg, &tail, 10);
               if (tail[0] != '\0')
                 {
-                  os_printk ("Error in parsing command %s = %s",
-                             long_options[option_index].name, optarg);
+                  os_printk ("Error in parsing command %s = %s", name, optarg);
                   exit (-1);
                 }
-              if (0
-                  == strncmp (long_options[option_index].name, "code-size",
-                              sizeof ("code-size")))
+              if (0 == strncmp (name, "code-size", sizeof ("code-size")))
                 {
                   GLOBAL_SET (VM_CODESEG_SIZE, size);
                 }
-              else if (0
-                       == strncmp (long_options[option_index].name, "data-size",
-                                   sizeof ("data-size")))
+              else if (0 == strncmp (name, "data-size", sizeof ("data-size")))
                 {
                   GLOBAL_SET (VM_DATASEG_SIZE, size);
                 }
-              else if (0
-                       == strncmp (long_options[option_index].name,
-                                   "stack-size", sizeof ("stack-size")))
+              else if (0 == strncmp (name, "stack-size", sizeof ("stack-size")))
                 {
                   GLOBAL_SET (VM_STKSEG_SIZE, size);
                 }
             }
           else
             {
-              os_printk ("Please specify a value to option --%s\n",
-                         long_options[option_index].name);
+              os_printk ("Please specify a value to option --%s\n", name);
               exit (-1);
             }
 
