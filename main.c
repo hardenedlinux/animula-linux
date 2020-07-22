@@ -81,6 +81,13 @@ int main (int argc, char **argv)
                   GLOBAL_SET (VM_STKSEG_SIZE, size);
                 }
             }
+          else
+            {
+              os_printk ("Please specify a value to option --%s\n",
+                         long_options[option_index].name);
+              exit (-1);
+            }
+
           break;
 
         case 'v':
