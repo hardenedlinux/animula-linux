@@ -10,8 +10,8 @@ ofile := $(cfile:.c=.o)
 ofile := $(addprefix $(OBJ)/,$(ofile))
 dfile := $(ofile:.o=.d)
 LDPATH := -L$(OBJ)
-LDFLAGS := $(LDPATH)
-CFLAGS := -Og -g -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra \
+LDFLAGS := $(LDPATH) -m32
+CFLAGS := -Og -g -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith \
 	-fdiagnostics-color=always -DLAMBDACHIP_LINUX -DLAMBDACHIP_DEBUG
 PROG := lambdachip-vm
