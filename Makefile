@@ -11,9 +11,19 @@ ofile := $(addprefix $(OBJ)/,$(ofile))
 dfile := $(ofile:.o=.d)
 LDPATH := -L$(OBJ)
 LDFLAGS := $(LDPATH) -m32
-CFLAGS := -Og -g -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
+ifeq ($(RELEASE), 1)
+O_LEV := s
+DSYM :=
+DBG :=
+else
+O_LEV := g
+DSYM := -g
+DBG := -DLAMBDACHIP_DEBUG
+endif
+CFLAGS := -O$(O_LEV) $(DSYM) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith \
-	-fdiagnostics-color=always -DLAMBDACHIP_LINUX -DLAMBDACHIP_DEBUG
+	-fdiagnostics-color=always -Wno-strict-aliasing \
+	-DLAMBDACHIP_LINUX $(DBG)
 PROG := lambdachip-vm
 
 all:
