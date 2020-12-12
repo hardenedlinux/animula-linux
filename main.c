@@ -115,8 +115,9 @@ int main (int argc, char **argv)
   VM_DEBUG ("Loading LEF image from %s......\n", argv[optind]);
   lef_t lef = load_lef_from_file (argv[optind]);
   vm_load_lef (vm, lef);
+  free_lef (lef);
   vm_run (vm);
-  lambdachip_clean (vm);
 
+  lambdachip_clean (vm);
   return 0;
 }
