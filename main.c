@@ -1,4 +1,4 @@
-/*  Copyright (C) 2020
+/*  Copyright (C) 2020-2021
  *        "Mu Lei" known as "NalaGinrut" <NalaGinrut@gmail.com>
  *  Lambdachip is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as
@@ -24,6 +24,12 @@ GLOBAL_DEF (bool, vm_execute) = false;
 GLOBAL_DEF (size_t, VM_CODESEG_SIZE) = 8192;
 GLOBAL_DEF (size_t, VM_DATASEG_SIZE) = 2048;
 GLOBAL_DEF (size_t, VM_STKSEG_SIZE) = 1024;
+
+static lef_t lef_loader (const char *filename)
+{
+  VM_DEBUG ("Loading LEF image from %s......\n", filename);
+  return load_lef_from_file (filename);
+}
 
 int main (int argc, char **argv)
 {
@@ -111,13 +117,8 @@ int main (int argc, char **argv)
   VM_DEBUG ("Platform: %s\n", get_platform_info ());
 
   vm_t vm = lambdachip_init ();
-
-  VM_DEBUG ("Loading LEF image from %s......\n", argv[optind]);
-  lef_t lef = load_lef_from_file (argv[optind]);
-  vm_load_lef (vm, lef);
-  free_lef (lef);
-  vm_run (vm);
-
+  struct LEF_Loader loader = {.filename = argv[optind], .loader = lef_loader};
+  lambdachip_start (&loader);
   lambdachip_clean (vm);
   return 0;
 }
