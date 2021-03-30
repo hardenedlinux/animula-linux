@@ -116,9 +116,8 @@ int main (int argc, char **argv)
    */
   VM_DEBUG ("Platform: %s\n", get_platform_info ());
 
-  vm_t vm = lambdachip_init ();
   struct LEF_Loader loader = {.filename = argv[optind], .loader = lef_loader};
-  lambdachip_start (&loader);
+  vm_t vm = lambdachip_start (&loader);
   lambdachip_clean (vm);
   return 0;
 }
