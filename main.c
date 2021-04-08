@@ -20,9 +20,6 @@
 
 GLOBAL_DEF (bool, vm_verbose) = false;
 GLOBAL_DEF (bool, vm_execute) = false;
-
-GLOBAL_DEF (size_t, VM_CODESEG_SIZE) = 8192;
-GLOBAL_DEF (size_t, VM_DATASEG_SIZE) = 2048;
 GLOBAL_DEF (size_t, VM_STKSEG_SIZE) = 1024;
 
 static lef_t lef_loader (const char *filename)
@@ -35,18 +32,14 @@ int main (int argc, char **argv)
 {
   if (1 == argc)
     {
-      os_printk (
-        "[usage] lambdachip-vm [options] filename.lef\n"
-        "options: -v, -m, --code-size=SIZE, --data-size=SIZE, --stack-size=SIZE"
-        "\n");
+      os_printk ("[usage] lambdachip-vm [options] filename.lef\n"
+                 "options: -v, -x, --stack-size=SIZE"
+                 "\n");
       exit (0);
     }
 
   static struct option long_options[]
-    = {{"code-size", required_argument, 0, 0},
-       {"data-size", required_argument, 0, 0},
-       {"stack-size", required_argument, 0, 0},
-       {0, 0, 0, 0}};
+    = {{"stack-size", required_argument, 0, 0}, {0, 0, 0, 0}};
 
   while (1)
     {
@@ -71,14 +64,6 @@ int main (int argc, char **argv)
                   os_printk ("Error in parsing command %s = %s\n", name,
                              optarg);
                   exit (-1);
-                }
-              if (0 == strncmp (name, "code-size", sizeof ("code-size")))
-                {
-                  GLOBAL_SET (VM_CODESEG_SIZE, size);
-                }
-              else if (0 == strncmp (name, "data-size", sizeof ("data-size")))
-                {
-                  GLOBAL_SET (VM_DATASEG_SIZE, size);
                 }
               else if (0 == strncmp (name, "stack-size", sizeof ("stack-size")))
                 {
