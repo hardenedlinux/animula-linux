@@ -36,6 +36,12 @@ all:
 -include $(dfile)
 program-framework := $(ofile)
 
+$(OBJ)/%.d: %.c | $(OBJ)
+	set -e; rm -f $@; \
+	$(CC) -MM $(CFLAGS) $(INC) $< > $@.$$$$; \
+	sed 's|\($*\)\.o[ :]*|\1.o $@ : |g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
 $(OBJ)/main.o: $(TOP)/main.c
 	@echo + cc $<
 	$(V)mkdir -p $(@D)
