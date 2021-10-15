@@ -10,7 +10,7 @@ ofile := $(cfile:.c=.o)
 ofile := $(addprefix $(OBJ)/,$(ofile))
 dfile := $(ofile:.o=.d)
 LDPATH := -L$(OBJ)
-LDFLAGS := $(LDPATH) -m32
+LDFLAGS := $(LDPATH) -m32 -lm
 ifeq ($(RELEASE), 1)
 O_LEV := s
 DSYM :=
@@ -25,7 +25,7 @@ CFG := -D GC_RECYCLE_CURRENT_FRAME
 
 CFLAGS := -O$(O_LEV) $(DSYM) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith \
-	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-discarded-qualifiers\
+	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-unused-parameter -Wno-format-security \
 	-DLAMBDACHIP_LINUX $(DBG) $(CFG)
 PROG := lambdachip-vm
 
