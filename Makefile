@@ -25,7 +25,7 @@ CFG := -D GC_RECYCLE_CURRENT_FRAME
 
 CFLAGS := -O$(O_LEV) $(DSYM) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith \
-	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-unused-parameter -Wno-format-security \
+	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-unused-parameter -Wno-format-security -Wno-stringop-overread \
 	-DLAMBDACHIP_LINUX $(DBG) $(CFG)
 PROG := lambdachip-vm
 
