@@ -15,7 +15,7 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lambdachip.h"
+#include "animula.h"
 #include <getopt.h>
 
 GLOBAL_DEF (bool, vm_verbose) = false;
@@ -32,7 +32,7 @@ int main (int argc, char **argv)
 {
   if (1 == argc)
     {
-      os_printk ("[usage] lambdachip-vm [options] filename.lef\n"
+      os_printk ("[usage] animula-vm [options] filename.lef\n"
                  "options: -v, -x, --stack-size=SIZE"
                  "\n");
       exit (0);
@@ -102,7 +102,7 @@ int main (int argc, char **argv)
   VM_DEBUG ("Platform: %s\n", get_platform_info ());
 
   struct LEF_Loader loader = {.filename = argv[optind], .loader = lef_loader};
-  vm_t vm = lambdachip_start (&loader);
-  lambdachip_clean (vm);
+  vm_t vm = animula_start (&loader);
+  animula_clean (vm);
   return 0;
 }

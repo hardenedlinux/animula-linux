@@ -1,6 +1,6 @@
 TOP := .
 OBJ := $(TOP)/obj
-SRC := $(TOP)/lambdachip
+SRC := $(TOP)/animula
 INC := $(SRC)/inc
 MAKE := make
 CC := gcc
@@ -18,7 +18,7 @@ DBG :=
 else
 O_LEV := g
 DSYM := -g
-DBG := -DLAMBDACHIP_DEBUG
+DBG := -DANIMULA_DEBUG
 endif
 
 CFG := -D GC_RECYCLE_CURRENT_FRAME
@@ -26,8 +26,8 @@ CFG := -D GC_RECYCLE_CURRENT_FRAME
 CFLAGS := -O$(O_LEV) $(DSYM) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith -fsanitize=address \
 	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-unused-parameter -Wno-format-security -Wno-stringop-overread \
-	-DLAMBDACHIP_LINUX $(DBG) $(CFG) -Wno-pragmas
-PROG := lambdachip-vm
+	-DANIMULA_LINUX $(DBG) $(CFG) -Wno-pragmas
+PROG := animula-vm
 
 all:
 	$(V)$(MAKE) $(PROG)
