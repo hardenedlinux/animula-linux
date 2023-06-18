@@ -4,6 +4,6 @@ ideas
 *.lo
 obj
 *.o
-lambdachip
-lambdachip-vm
+animula
+animula-vm
 *.lef

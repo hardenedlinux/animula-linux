@@ -19,11 +19,12 @@ else
 O_LEV := g
 DSYM := -g
 DBG := -DANIMULA_DEBUG
+GC := -D USE_TINY_GC
 endif
 
 CFG := -D GC_RECYCLE_CURRENT_FRAME
 
-CFLAGS := -O$(O_LEV) $(DSYM) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
+CFLAGS := -O$(O_LEV) $(DSYM) $(GC) -I$(INC) -MD -Wall -Wno-unused -Werror -Wextra -m32 \
 	-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -Wno-pointer-arith -fsanitize=address \
 	-fdiagnostics-color=always -Wno-strict-aliasing -Wno-unused-parameter -Wno-format-security -Wno-stringop-overread \
 	-DANIMULA_LINUX $(DBG) $(CFG) -Wno-pragmas
@@ -54,4 +55,3 @@ $(PROG): $(program-framework) $(OBJ)/main.o
 
 clean:
 	-rm -fr $(OBJ) $(PROG) *~
-
