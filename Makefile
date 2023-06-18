@@ -36,12 +36,6 @@ all:
 -include $(dfile)
 program-framework := $(ofile)
 
-$(OBJ)/%.d: %.c | $(OBJ)
-	set -e; rm -f $@; \
-	$(CC) -MM $(CFLAGS) $(INC) $< > $@.$$$$; \
-	sed 's|\($*\)\.o[ :]*|\1.o $@ : |g' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
-
 $(OBJ)/main.o: $(TOP)/main.c
 	@echo + cc $<
 	$(V)mkdir -p $(@D)
@@ -51,6 +45,7 @@ $(OBJ)/%.o: %.c
 	@echo + cc $<
 	$(V)mkdir -p $(@D)
 	$(V)$(CC) $(CFLAGS) -c -o $@ $<
+	$(V)sed -i 's|\($*\)\.o[ :]*|\1.o $(OBJ)/$*.d : |g' $(OBJ)/$*.d
 
 $(PROG): $(program-framework) $(OBJ)/main.o
 	$(V)$(CC) -o $@ $^ $(LDFLAGS)
@@ -58,4 +53,5 @@ $(PROG): $(program-framework) $(OBJ)/main.o
 .PHONY: clean
 
 clean:
-	-rm -fr $(OBJ) $(PROG)
+	-rm -fr $(OBJ) $(PROG) *~
+
