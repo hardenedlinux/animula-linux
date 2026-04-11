@@ -19,8 +19,9 @@ else
 O_LEV := g
 DSYM := -g
 DBG := -DANIMULA_DEBUG
-GC := -D USE_TINY_GC
 endif
+
+GC := -D USE_TINY_GC
 
 CFG := -D GC_RECYCLE_CURRENT_FRAME
 
